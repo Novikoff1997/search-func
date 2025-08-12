@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>Books</title>
+  </head>
+  <body>
+    <section class="books">
+      <div class="container">
+        <div class="section header">
+          <input type="text" class="search-input" />
+          <ul class="categories-list">
+            <li class="category" data-filter="all">Все</li>
+            <li class="category" data-filter="classic">Классика</li>
+            <li class="category" data-filter="stories">Рассказы</li>
+            <li class="category" data-filter="fantasy">Фантастика</li>
+            <li class="category" data-filter="dev">Программирование</li>
+            <li class="category" data-filter="self-dev">Саморазвитие</li>
+            <li class="category" data-filter="anime">Аниме</li>
+            <li class="category" data-filter="children">Детям</li>
+          </ul>
+          <ul class="publishing-houses">
+            <li class="publishing-houses-item">
+              <input id="book-house" class="checkbox" type="checkbox" value="book-house" />
+              <label for="book-house">Дом Книги</label>
+            </li>
+            <li class="publishing-houses-item">
+              <input id="reading-city" class="checkbox" type="checkbox" value="reading-city" />
+              <label for="reading-city">Читающий Город</label>
+            </li>
+            <li class="publishing-houses-item">
+              <input id="white-stork" class="checkbox" type="checkbox" value="white-stork" />
+              <label for="white-stork">Белый Аист</label>
+            </li>
+          </ul>
+
+          <div class="years-range-wrapper">
+            <input class="years-range" value="0" type="range" min="1700" max="2025" step="1" />
+            <span class="year-value">1700</span>
+          </div>
+        </div>
+
+        <ul class="books__list">
+          <li class="book__card" data-category="classic" data-publishing="reading-city" data-year="1873">
+            <h4 class="book__title">Анна Каренина</h4>
+          </li>
+          <li class="book__card" data-category="dev" data-publishing="book-house" data-year="2016">
+            <h4 class="book__title">Грокаем алгоритмы</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="reading-city" data-year="1863">
+            <h4 class="book__title">Война и мир</h4>
+          </li>
+          <li class="book__card" data-category="stroies" data-publishing="book-house" data-year="1943">
+            <h4 class="book__title">Скотный двор</h4>
+          </li>
+          <li class="book__card" data-category="fantasy" data-publishing="reading-city" data-year="1898">
+            <h4 class="book__title">Тени прошлого</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="white-stork" data-year="1835">
+            <h4 class="book__title">Мертвые души</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="reading-city" data-year="1835">
+            <h4 class="book__title">Ревизор</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="book-house" data-year="1866">
+            <h4 class="book__title">Преступление и наказание</h4>
+          </li>
+          <li class="book__card" data-category="fantasy" data-publishing="reading-city" data-year="2005">
+            <h4 class="book__title">Метро 2033</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="white-stork" data-year="1928">
+            <h4 class="book__title">Мастер и Маргарита</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="reading-city" data-year="1700">
+            <h4 class="book__title">Гамлет</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="white-stork" data-year="1873">
+            <h4 class="book__title">Анна Каренина</h4>
+          </li>
+          <li class="book__card" data-category="stories" data-publishing="white-stork" data-year="1890">
+            <h4 class="book__title">Портрет Дориана Грея</h4>
+          </li>
+          <li class="book__card" data-category="children" data-publishing="reading-city" data-year="2010">
+            <h4 class="book__title">Фиксики</h4>
+          </li>
+          <li class="book__card" data-category="anime" data-publishing="book-house" data-year="1999">
+            <h4 class="book__title">Наруто</h4>
+          </li>
+          <li class="book__card" data-category="anime" data-publishing="white-stork" data-year="2009">
+            <h4 class="book__title">Атака титанов</h4>
+          </li>
+          <li class="book__card" data-category="self-dev" data-publishing="reading-city" data-year="1997">
+            <h4 class="book__title">Богатый папа бедный папа</h4>
+          </li>
+          <li class="book__card" data-category="self-dev" data-publishing="white-stork" data-year="1867">
+            <h4 class="book__title">Капитал</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="reading-city" data-year="1929">
+            <h4 class="book__title">На западном фронте без перемен</h4>
+          </li>
+          <li class="book__card" data-category="classic" data-publishing="book-house" data-year="1844">
+            <h4 class="book__title">Граф Монте-Кристо</h4>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </body>
+</html>
