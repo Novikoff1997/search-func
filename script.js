@@ -1,70 +1,126 @@
-const booksList = document.querySelector(".books__list"); // Контейнер карточек
-const allBooks = booksList.querySelectorAll(".book__card"); // Все карточки
+const booksContainer = document.querySelector(".books__list"); // Контейнер карточек
+const booksCards = booksContainer.querySelectorAll(".book__card"); // Все карточки
+const searchInput = document.querySelector(".search-input"); // Поле воода поиска
+const categoriesList = document.querySelector(".categories-list"); // Список категорий
+const publishingHousesList = document.querySelector(".publishing-houses"); // Список издателей
+const yearsRange = document.querySelector(".years-range"); // Ползунок установки года
+const yearValueDisplay = document.querySelector(".year-value"); // Поле для отображения текущего года
 
-const searchInput = document.querySelector(".search-input");
-const categoriesList = document.querySelector(".categories-list");
-const publishingHousesList = document.querySelector(".publishing-houses");
-const yearsRange = document.querySelector(".years-range");
+const booksArray = [...booksCards];
+let filteredBooksArray = [];
 
-const spanYearValue = document.querySelector(".year-value");
+// Состоние
 
-const allItems = [...allBooks];
-let filteredItemsArray = [];
-
-let searchInputValue;
-let searchFilterValue;
-let publishersValue = [];
-let yearRangeValue;
-
-const viewItems = () => {
-  booksList.innerHTML = "";
-  filteredItemsArray.forEach((book) => {
-    booksList.append(book);
-  });
+const filters = {
+  searchText: "",
+  category: null,
+  publishers: [],
+  year: null,
 };
+
+// Функция дебаунс
+
+function debounce(func, delay) {
+  let timeoutId;
+
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// Функция рендера книг
+
+const renderBooks = () => {
+  booksContainer.innerHTML = "";
+
+  if (filteredBooksArray.length > 0) {
+    filteredBooksArray.forEach((book) => booksContainer.append(book));
+  } else {
+    booksContainer.innerHTML = "Книг не найдено";
+  }
+};
+
+// Условия для фильтров
+
+const matchesSearchText = (bookName) => {
+  if (!filters.searchText) return true;
+  return bookName.toLowerCase().startsWith(filters.searchText.toLowerCase());
+};
+
+const matchesCategory = (bookCategory) => {
+  if (!filters.category || filters.category === "all") return true;
+  return bookCategory === filters.category;
+};
+
+const matchesPublisher = (bookPublisher) => {
+  if (filters.publishers.length === 0) return true;
+  return filters.publishers.includes(bookPublisher);
+};
+
+const matchesYear = (bookYear) => {
+  if (!filters.year) return true;
+  return bookYear > filters.year;
+};
+
+// Функция старта фильтрации
 
 const startFilter = () => {
-  const filteredItems = allItems.filter((item) => {
-    const itemName = item.querySelector(".book__title").textContent.toLowerCase();
-    const itemFilterCategory = item.dataset.category;
-    const itemPublisher = item.dataset.publishing;
-    const itemYear = item.dataset.year;
+  const filteredItems = booksArray.filter((item) => {
+    const bookData = item.querySelector(".data-attributes").dataset;
 
-    const serachInputText = searchInputValue ? itemName.startsWith(searchInputValue) : true;
-    const searchCategory = searchFilterValue
-      ? searchFilterValue === "all"
-        ? true
-        : itemFilterCategory === searchFilterValue
-      : true;
-    const searchPublisher = publishersValue.length > 0 ? publishersValue.includes(itemPublisher) : true;
-    const searchYears = yearRangeValue ? itemYear > yearRangeValue : true;
+    console.log(bookData.publisher);
 
-    return serachInputText && searchCategory && searchPublisher && searchYears;
+    return (
+      matchesSearchText(bookData.name) &&
+      matchesCategory(bookData.category) &&
+      matchesPublisher(bookData.publisher) &&
+      matchesYear(bookData.year)
+    );
   });
 
-  filteredItemsArray = [...filteredItems];
-  viewItems();
+  filteredBooksArray = [...filteredItems];
+  renderBooks();
 };
 
-searchInput.addEventListener("input", (e) => {
-  searchInputValue = e.target.value.trim().toLowerCase();
-  startFilter();
-});
+// Отслушиватели событий
 
-categoriesList.addEventListener("click", (e) => {
-  if (e.target.dataset.filter) {
-    searchFilterValue = e.target.dataset.filter;
+searchInput.addEventListener(
+  "input",
+  debounce((e) => {
+    filters.searchText = e.target.value.trim();
     startFilter();
-  }
-});
+  }, 300)
+);
 
-publishingHousesList.addEventListener("input", (e) => {
-  e.target.checked ? publishersValue.push(e.target.value) : publishersValue.pop(e.target.value);
-  startFilter();
-});
+categoriesList.addEventListener(
+  "click",
+  debounce((e) => {
+    if (e.target.dataset.filter) {
+      filters.category = e.target.dataset.filter;
+      startFilter();
+    }
+  }, 300)
+);
+
+publishingHousesList.addEventListener(
+  "input",
+  debounce((e) => {
+    e.target.checked ? filters.publishers.push(e.target.value) : filters.publishers.pop(e.target.value);
+    startFilter();
+  }, 300)
+);
+
+yearsRange.addEventListener(
+  "input",
+  debounce((e) => {
+    filters.year = e.target.value;
+    startFilter();
+  }, 300)
+);
 
 yearsRange.addEventListener("input", (e) => {
-  yearRangeValue = e.target.value;
-  spanYearValue.textContent = yearRangeValue;
-  startFilter();
+  yearValueDisplay.textContent = e.target.value;
 });

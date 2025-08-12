@@ -65,3 +65,7 @@
   gap: 25px;
   margin-top: 15px;
 }
+
+.data-attributes {
+  display: none;
+}
