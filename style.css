@@ -44,6 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   border: 1px solid rgb(115, 115, 115);
   flex-basis: 33%;
   height: 150px;
@@ -68,4 +69,8 @@
 
 .data-attributes {
   display: none;
+}
+
+.filter-label {
+  font-size: 22px;
 }
