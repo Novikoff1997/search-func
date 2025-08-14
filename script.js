@@ -1,10 +1,10 @@
-const booksContainer = document.querySelector(".books__list"); // Контейнер карточек
-const booksCards = booksContainer.querySelectorAll(".book__card"); // Все карточки
-const searchInput = document.querySelector(".search-input"); // Поле воода поиска
-const categoriesList = document.querySelector(".categories-list"); // Список категорий
-const publishingHousesList = document.querySelector(".publishing-houses"); // Список издателей
-const yearsRange = document.querySelector(".years-range"); // Ползунок установки года
-const yearValueDisplay = document.querySelector(".year-value"); // Поле для отображения текущего года
+const booksContainer = document.querySelector(".books__list"); // Контейнер карточек (родительский блок)
+const booksCards = booksContainer.querySelectorAll(".book__card"); // Все карточки (общий класс)
+const searchInput = document.querySelector(".search-input"); // Поле ввода поиска
+const categoriesList = document.querySelector(".categories-list"); // Список категорий (родительский блок)
+const publishingHousesList = document.querySelector(".publishing-houses"); // Список издателей (Родительский блок)
+const yearsRange = document.querySelector(".years-range"); // Ползунок установки года (элемент input range)
+const yearValueDisplay = document.querySelector(".year-value"); // Поле для отображения текущего года (Если есть)
 
 const booksArray = [...booksCards];
 let filteredBooksArray = [];
@@ -39,7 +39,7 @@ const renderBooks = () => {
   if (filteredBooksArray.length > 0) {
     filteredBooksArray.forEach((book) => booksContainer.append(book));
   } else {
-    booksContainer.innerHTML = "Книг не найдено";
+    booksContainer.innerHTML = "Книг не найдено"; // Если не нужно сообщение о том что книги не найдены удалить блок else
   }
 };
 
